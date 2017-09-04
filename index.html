@@ -1,0 +1,22 @@
+<html ng-app="LightScroller" >
+
+<head>
+	<title>Scrolling Light Sign Test</title>
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+	<div ng-controller="SignController" class="container">
+  		<div ng-repeat="row in lightsArray track by $index" class="light-row">
+  			<span ng-repeat="light in row track by $index" class="light {{light}}"></span>
+  		</div>
+	</div>
+</body>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="js/sign-controller.js"></script>
+
+</html>
