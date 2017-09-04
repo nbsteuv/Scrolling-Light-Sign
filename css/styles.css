@@ -1,17 +1,17 @@
 .container{
-	width: 100%;
+	width: 80%;
+	margin: 0 auto;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	background-color: black;
+	text-align: center;
 }
 
 .light-row{
-	width: 80%;
-	height: 10px;
-	margin: 0 auto;
-	text-align: center;
-	background-color: black;
+	display: inline-block;
 }
 
 .light{
-	display: inline-block;
 	width: 5px;
 	height: 5px;
 	margin: 2px;

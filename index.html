@@ -10,7 +10,7 @@
 <body>
 	<div ng-controller="SignController" class="container">
   		<div ng-repeat="row in lightsArray track by $index" class="light-row">
-  			<span ng-repeat="light in row track by $index" class="light {{light}}"></span>
+  			<div ng-repeat="light in row track by $index" class="light" ng-class="getLightClass(light)"></div>
   		</div>
 	</div>
 </body>
