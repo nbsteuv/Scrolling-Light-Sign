@@ -4,25 +4,21 @@
 
 	var app = angular.module('LightScroller');
 
-	app.controller('SignController', ['$scope', function($scope){
+	app.controller('SignController', ['$scope', '$interval', function($scope, $interval){
 
 		var letterWidth = 5;
 		var spaceWidth = 2;
 		var letterDisplayCount = 14;
 		var height = 7;
-
-		// var letterWidth = 1;
-		// var spaceWidth = 1;
-		// var letterDisplayCount = 14;
-		// var height = 7;
+		var framesPerSeconds = 8;
 
 		$scope.lightsArray = [];
 		$scope.message = "Hello World";
 		$scope.getLightClass = getLightClass;
 
 		initializeLightsArray();
-		var messageArray = createMessageArray("he");
-		$scope.lightsArray = messageArray;
+		var intervalPromise = startScrolling($scope.message);
+
 
 		function getTotalWidth(){
 
@@ -33,21 +29,16 @@
 		function initializeLightsArray(){
 
 			var width = getTotalWidth();
-			console.log(width);
-			console.log(height);
 
 			var lightsArray = [];
 
-			for(var i = 0; i < height; i++){
+			for(var i = 0; i < width; i++){
 				rowArray = [];
-				for(var j = 0; j < width; j++){
-					// rowArray.push('light-off');
-					rowArray.push(constants.LetterArrays["Z"][i][j] === 0 ? 'lights-off' : 'lights-on');
+				for(var j = 0; j < height; j++){
+					rowArray.push(0);
 				}
 				lightsArray.push(rowArray);
 			}
-
-			console.log(lightsArray);
 
 			$scope.lightsArray = lightsArray;
 
@@ -80,8 +71,6 @@
 				}
 			}
 
-			console.log(messageArray);
-
 			return messageArray;
 		}
 
@@ -101,6 +90,7 @@
 		}
 
 		function getLightClass(lightSwitch){
+
 			if(lightSwitch === 1){
 				return 'lights-on';
 			} else {
@@ -108,7 +98,47 @@
 			}
 		}
 
-		
+		function startScrolling(message){
+
+			var contentArray = createMessageArray(message);
+			var currentPointer = 0;
+			intervalPromise = $interval(function(){
+				newPointer = scroll(contentArray, currentPointer);
+				currentPointer = newPointer;
+			}, 1000 / framesPerSeconds);
+			return intervalPromise;
+
+		}
+
+		function stopScrolling(intervalPromise){
+
+			$interval.cancel(intervalPromise);
+
+		}
+
+		function scroll(contentArray, currentPointer){
+
+			$scope.lightsArray = shiftDisplay($scope.lightsArray, contentArray, currentPointer);
+			newPointer = incrementPointer(currentPointer, contentArray);
+			return newPointer;
+
+		}
+
+		function incrementPointer(currentPointer, contentArray){
+
+			var newPointer = currentPointer < contentArray.length ? currentPointer + 1 : 0;
+			return newPointer
+
+		}
+
+		function shiftDisplay(displayArray, contentArray, currentPointer){
+
+			newDisplayArray = displayArray;
+			newDisplayArray.shift();
+			newDisplayArray.push(contentArray[currentPointer]);
+			return newDisplayArray;
+
+		}
 
 	}]);
 
