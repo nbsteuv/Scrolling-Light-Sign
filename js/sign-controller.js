@@ -13,7 +13,7 @@
 		var framesPerSeconds = 8;
 
 		$scope.lightsArray = [];
-		$scope.message = "Hello World";
+		$scope.message = "Hello world";
 		$scope.getLightClass = getLightClass;
 
 		initializeLightsArray();
@@ -46,12 +46,14 @@
 
 		function createMessageArray(message){
 
+			formattedMessage = formatMessage(message);
+
 			var messageArray = [];
 
 			var spaceArray = createSpaceArray();
 
-			for(var i = 0; i < message.length; i++){
-				var character = message[i].toUpperCase();
+			for(var i = 0; i < formattedMessage.length; i++){
+				var character = formattedMessage[i].toUpperCase();
 				var characterArray = constants.LetterArrays[character];
 
 				if(characterArray === undefined){
@@ -72,6 +74,13 @@
 			}
 
 			return messageArray;
+		}
+
+		function formatMessage(message){
+
+			newMessage = message + '  ';
+			return newMessage;
+
 		}
 
 		function createSpaceArray(){
