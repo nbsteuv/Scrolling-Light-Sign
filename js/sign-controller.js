@@ -10,10 +10,10 @@
 		var spaceWidth = 2;
 		var letterDisplayCount = 14;
 		var height = 7;
-		var framesPerSeconds = 8;
+		var framesPerSeconds = 10;
 
 		$scope.lightsArray = [];
-		$scope.message = "Hello world";
+		$scope.message = "Hello World";
 		$scope.getLightClass = getLightClass;
 
 		initializeLightsArray();
