@@ -14,11 +14,19 @@
 
 		$scope.lightsArray = [];
 		$scope.message = "Hello World";
+		$scope.messageInput = "";
 		$scope.getLightClass = getLightClass;
+		$scope.setMessage = setMessage;
 
 		initializeLightsArray();
 		var intervalPromise = startScrolling($scope.message);
 
+		function setMessage(){
+			$scope.message = $scope.messageInput;
+			stopScrolling(intervalPromise);
+			initializeLightsArray();
+			intervalPromise = startScrolling($scope.message);
+		}
 
 		function getTotalWidth(){
 
@@ -111,7 +119,7 @@
 
 			var contentArray = createMessageArray(message);
 			var currentPointer = 0;
-			intervalPromise = $interval(function(){
+			var intervalPromise = $interval(function(){
 				newPointer = scroll(contentArray, currentPointer);
 				currentPointer = newPointer;
 			}, 1000 / framesPerSeconds);
